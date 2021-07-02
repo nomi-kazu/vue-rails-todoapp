@@ -12,7 +12,10 @@
     </div>
     <div class="content">
       <ul v-for="todo in todos" :key="todo.id">
-        <li>{{ todo.title }}</li>
+        <li>
+          {{ todo.title }}
+          <button @click="destroyTodo(todo.id)">Delete</button>
+        </li>
       </ul>
     </div>
   </div>
@@ -52,6 +55,13 @@ export default {
         .get('http://localhost:5000/v1/todos')
         .then(response => {
           this.todos = response.data;
+        })
+    },
+    destroyTodo: function(id) {
+      axios
+        .delete(`http://localhost:5000/v1/todos/${id}`)
+        .then(response => {
+          this.updateTodos();
         })
     }
   }
