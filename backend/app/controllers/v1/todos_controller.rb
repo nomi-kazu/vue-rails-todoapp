@@ -1,5 +1,5 @@
 class V1::TodosController < ApplicationController
-  before_action :set_todo, only: :destroy
+  before_action :set_todo, only: %i[destroy update]
 
   def index
     todos = Todo.order(:id)
@@ -13,6 +13,10 @@ class V1::TodosController < ApplicationController
     else
       render json: todo.errors, status: :unprocessable_entity
     end
+  end
+
+  def update
+    @todo.update(todo_params)
   end
 
   def destroy
