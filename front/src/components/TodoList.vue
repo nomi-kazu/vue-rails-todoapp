@@ -26,7 +26,7 @@ export default {
   methods: {
     createTodo: function() {
       axios
-        .post('http://localhost:5000/v1/todos')
+        .post('http://localhost:5000/v1/todos', this.todo)
         .then(response => {
           console.log('Created!');
         })
