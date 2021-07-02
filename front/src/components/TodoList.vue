@@ -14,6 +14,7 @@
       <ul v-for="todo in todos" :key="todo.id">
         <li>
           {{ todo.title }}
+          <button>Edit</button>
           <button @click="destroyTodo(todo.id)">Delete</button>
         </li>
       </ul>
