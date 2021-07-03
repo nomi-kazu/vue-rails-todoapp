@@ -14,7 +14,7 @@
       <ul v-for="todo in todos" :key="todo.id">
         <li>
           {{ todo.title }}
-          <button @click="modalActive = !modalActive">Edit</button>
+          <button @click="openModal(todo)">Edit</button>
           <button @click="destroyTodo(todo.id)">Delete</button>
         </li>
       </ul>
@@ -25,7 +25,7 @@
       <div class="modal-content">
         <div class="field is-grouped mt-6">
           <p class="control is-expanded">
-            <input v-model="todo.title" class="input" type="text">
+            <input v-model="editTodo.title" class="input" type="text">
           </p>
           <p class="control">
             <a class="button is-link">
@@ -34,9 +34,9 @@
           </p>
         </div>
       </div>
-      <button @click="modalActive = false" class="modal-close is-large" aria-label="close"></button>
+      <button @click="closeModal" class="modal-close is-large" aria-label="close"></button>
     </div>
-    
+
   </div>
 </template>
 
@@ -51,7 +51,10 @@ export default {
       todo: {
         title: ''
       },
-      modalActive: false
+      modalActive: false,
+      editTodo: {
+        title: ''
+      }
     }
   },
   mounted() {
@@ -83,6 +86,14 @@ export default {
         .then(response => {
           this.updateTodos();
         })
+    },
+    openModal: function(todo) {
+      this.editTodo = todo;
+      this.modalActive = true;
+    },
+    closeModal: function() {
+      this.editTodo = '';
+      this.modalActive = false;
     }
   }
 }
