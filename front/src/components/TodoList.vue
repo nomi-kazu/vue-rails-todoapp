@@ -59,7 +59,7 @@ export default {
   },
   mounted() {
     axios
-      .get('http://localhost:5000/v1/todos')
+      .get('https://vue-rails-backend-api.herokuapp.com/v1/todos')
       .then(response => {
         this.todos = response.data;
       })
@@ -67,7 +67,7 @@ export default {
   methods: {
     createTodo: function() {
       axios
-        .post('http://localhost:5000/v1/todos', this.todo)
+        .post('https://vue-rails-backend-api.herokuapp.com/v1/todos', this.todo)
         .then(response => {
           this.updateTodos();
           this.todo.title = '';
@@ -75,21 +75,21 @@ export default {
     },
     updateTodos: function() {
       axios
-        .get('http://localhost:5000/v1/todos')
+        .get('https://vue-rails-backend-api.herokuapp.com/v1/todos')
         .then(response => {
           this.todos = response.data;
         })
     },
     destroyTodo: function(id) {
       axios
-        .delete(`http://localhost:5000/v1/todos/${id}`)
+        .delete(`https://vue-rails-backend-api.herokuapp.com/v1/todos/${id}`)
         .then(response => {
           this.updateTodos();
         })
     },
     updateTodo: function(id) {
       axios
-        .patch(`http://localhost:5000/v1/todos/${id}`, this.editTodo)
+        .patch(`https://vue-rails-backend-api.herokuapp.com/v1/todos/${id}`, this.editTodo)
         .then(response => {
           this.modalActive = false;
           this.updateTodos();
