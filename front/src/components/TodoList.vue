@@ -28,7 +28,7 @@
             <input v-model="editTodo.title" class="input" type="text">
           </p>
           <p class="control">
-            <a class="button is-link">
+            <a @click="updateTodo(editTodo.id)" class="button is-link">
               update
             </a>
           </p>
@@ -86,6 +86,14 @@ export default {
         .then(response => {
           this.updateTodos();
         })
+    },
+    updateTodo: function(id) {
+      axios
+        .patch(`http://localhost:5000/v1/todos/${id}`, this.editTodo)
+        .then(response => {
+          this.modalActive = false;
+          this.updateTodos();
+        }) 
     },
     openModal: function(todo) {
       this.editTodo = todo;
