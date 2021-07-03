@@ -14,11 +14,29 @@
       <ul v-for="todo in todos" :key="todo.id">
         <li>
           {{ todo.title }}
-          <button>Edit</button>
+          <button @click="modalActive = !modalActive">Edit</button>
           <button @click="destroyTodo(todo.id)">Delete</button>
         </li>
       </ul>
     </div>
+
+    <div v-bind:class="{ 'is-active': modalActive }" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="field is-grouped mt-6">
+          <p class="control is-expanded">
+            <input v-model="todo.title" class="input" type="text">
+          </p>
+          <p class="control">
+            <a class="button is-link">
+              update
+            </a>
+          </p>
+        </div>
+      </div>
+      <button @click="modalActive = false" class="modal-close is-large" aria-label="close"></button>
+    </div>
+    
   </div>
 </template>
 
@@ -32,7 +50,8 @@ export default {
       todos: [],
       todo: {
         title: ''
-      }
+      },
+      modalActive: false
     }
   },
   mounted() {
